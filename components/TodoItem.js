@@ -1,26 +1,46 @@
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
-export default function TodoItem({ id, text, onDelete, onEdit }) {
+export default function TodoItem({ todo, onEdit }) {
+  const { text, dueDate, time, priority } = todo;
+
   return (
     <TouchableOpacity onPress={onEdit}>
-      <View style={styles.todoItem}>
-        <Text style={styles.todoText}>{text}</Text>
+      <View style={styles.container}>
+        <View style={styles.bubble} />
+        <View style={styles.content}>
+          <Text style={styles.task}>{text}</Text>
+          <Text style={styles.details}>
+            Due Date: {dueDate.toString()} | Time: {time.toString()} | Priority: {priority}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  todoItem: {
-    padding: 16,
-    marginTop: 16,
-    borderColor: '#007bff',  // Blue border color
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    borderRadius: 10,
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
   },
-  todoText: {
-    color: '#212529', // Dark text for better contrast
+  bubble: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: 'blue',
+    marginRight: 10,
+  },
+  content: {
+    flex: 1,
+  },
+  task: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  details: {
+    fontSize: 12,
+    color: 'gray',
   },
 });
